@@ -29,7 +29,7 @@ const appMenuItem = <MenuItem>[
   MenuItem(
     titulus: 'Bandas musicales', 
     subtitulus: 'Gráficos Pie Chart y votaciones', 
-    link: '/bans', 
+    link: '/bands', 
     icon: Icons.music_note_outlined
     ),
 
