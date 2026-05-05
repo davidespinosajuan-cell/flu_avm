@@ -1,67 +1,33 @@
+import 'package:flu_avm/presentation/providers/numerator_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
-class NumeratorScreen extends StatefulWidget {
-  const NumeratorScreen({super.key});
+
+class NumeratorScreen extends ConsumerWidget {
+
+
+ const  NumeratorScreen({super.key});
 
   @override
-  State<NumeratorScreen> createState() => _NumeratorScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
 
+    final clickNumerator = ref.watch(numeratorProvider);
 
-class _NumeratorScreenState extends State<NumeratorScreen> {
-  
-  int counter = 0;
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Numerator Screen'),
       ),
       body: Center(
-        child: Text('Valor: $counter', style: Theme.of(context).textTheme.titleLarge) 
+        child: Text('Valor: $clickNumerator', style: Theme.of(context).textTheme.titleLarge) 
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            counter++;
-            
-          });
-          
-          // ignore: avoid_print
-          
-        },
-        child: Icon(Icons.add),
-      ),
-
-
-    );
-  }
-}
-
-
-
-/*
-class NumeratorScreen extends StatelessWidget {
-
-  int counter = 0;
-
-  NumeratorScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Numerator Screen'),
-      ),
-      body: Center(
-        child: Text('Valor: $counter', style: Theme.of(context).textTheme.titleLarge) 
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          counter++;
-          // ignore: avoid_print
-          print(counter);
+          ref.read(numeratorProvider.notifier).state++;
+          //ref.read(numeratorProvider.notifier).update(
+          //  (state) => state +1
+         // );
+         
 
         },
         child: Icon(Icons.add),
@@ -70,4 +36,3 @@ class NumeratorScreen extends StatelessWidget {
       );
   }
 }
-*/
