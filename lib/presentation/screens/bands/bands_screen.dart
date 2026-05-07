@@ -25,17 +25,33 @@ class BandsScreen extends StatelessWidget {
           );
   }
 
-  ListTile _bandTile(Band band) {
-    return ListTile(
-       leading: CircleAvatar(
-         child: Text(band.nomen.substring(0, 2).toLowerCase()),
-       ),
-       title:Text(band.nomen),
-       trailing: Text('${ band.numerusVotum }', style: TextStyle(fontSize: 20),),
-       onTap: () {
-         print(band.nomen);
-       },
-      );
+  Widget _bandTile(Band band) {
+    return Dismissible(
+      key: Key(band.id),
+      direction: DismissDirection.startToEnd,
+      onDismissed:(direction) {
+        print('direction: $direction');
+        print('${ band.id }');
+      },
+      background: Container(
+        padding: EdgeInsets.only(left: 8.0),
+        color: Colors.red,
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text('Delete Band', style: TextStyle(color: Colors.white),),
+        ),
+      ),
+      child: ListTile(
+         leading: CircleAvatar(
+           child: Text(band.nomen.substring(0, 2).toLowerCase()),
+         ),
+         title:Text(band.nomen),
+         trailing: Text('${ band.numerusVotum }', style: TextStyle(fontSize: 20),),
+         onTap: () {
+           print(band.nomen);
+         },
+        ),
+    );
   }
 addereNovumBand(BuildContext context){
   final TextEditingController textumController = TextEditingController();
