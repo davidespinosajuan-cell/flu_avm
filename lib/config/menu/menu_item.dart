@@ -31,7 +31,7 @@ const appMenuItems = <MenuItem>[
   ), 
 
    MenuItem(
-    titulus: 'Mapas',
+    titulus: 'Mapa',
     subtitulus: 'Localización de usuarios',
     link: '/charta',
     icon: Icons.map_outlined,
