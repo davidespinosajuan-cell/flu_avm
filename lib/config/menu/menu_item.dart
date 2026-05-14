@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class MenuItem {
-
   final String titulus;
   final String subtitulus;
   final String link;
@@ -12,25 +11,31 @@ class MenuItem {
     required this.subtitulus,
     required this.link,
     required this.icon,
-
-
   });
-
 
 }
 
-const appMenuItem = <MenuItem>[
+const appMenuItems = <MenuItem>[
   MenuItem(
-    titulus: 'Contador', 
-    subtitulus: 'Introducción a Riverpod', 
-    link: '/numerator-river', 
-    icon: Icons.add
-    ),
+    titulus: 'Contador',
+    subtitulus: 'Introducción a Riverpod',
+    link: '/numerator-river',
+    icon: Icons.add,
+  ), 
+
   MenuItem(
-    titulus: 'Bandas musicales', 
-    subtitulus: 'Gráficos Pie Chart y votaciones', 
-    link: '/bands', 
-    icon: Icons.music_note_outlined
-    ),
+    titulus: 'Bandas musicales',
+    subtitulus: 'Gráficos Pie Chart y votaciones',
+    link: '/bands',
+    icon: Icons.music_note_outlined,
+  ), 
+
+   MenuItem(
+    titulus: 'Mapas',
+    subtitulus: 'Localización de usuarios',
+    link: '/charta',
+    icon: Icons.map_outlined,
+  ), 
+
 
 ];
