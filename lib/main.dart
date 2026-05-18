@@ -3,8 +3,15 @@ import 'package:flu_avm/config/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'presentation/providers/providers.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
-void main() {
+Future<void> main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+
+  MapboxOptions.setAccessToken(mapboxAccessToken);
+
   runApp(
     const ProviderScope(
       child: MainApp(),
