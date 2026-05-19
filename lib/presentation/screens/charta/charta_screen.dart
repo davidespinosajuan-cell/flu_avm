@@ -1,8 +1,10 @@
 import 'package:flu_avm/presentation/providers/charta_provider.dart';
 import 'package:flu_avm/presentation/witgets/complere_form.dart';
+import 'package:flu_avm/presentation/witgets/informa_usoris.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+import '../../witgets/witgets.dart';
 
 class ChartaScreen extends ConsumerStatefulWidget {
   const ChartaScreen({super.key});
@@ -15,15 +17,38 @@ class _ChartaScreenState extends ConsumerState<ChartaScreen> {
 
   CircleAnnotationManager? _circleAnnotationManager;
 
+  Cancelable? _dragCancelable;
+
   void _initiareCircleAnnotations(MapboxMap mapboxmap) {
 
     mapboxmap.annotations.createCircleAnnotationManager().then((manager) {
       _circleAnnotationManager = manager;
+      _setupDragListener(manager);
       _addereVelRenovaMarker();
     });
   }
+
+  void _setupDragListener(CircleAnnotationManager manager) {
+    _dragCancelable?.cancel();
+
+    _dragCancelable = manager.dragEvents(
+      onChanged: (CircleAnnotation annotation) {
+        final pos = annotation.geometry.coordinates;
+        ref.read(coordsMarkerProvider.notifier).state = pos;
+      },
+      onEnd: (CircleAnnotation annotation) {
+        final pos = annotation.geometry.coordinates;
+        ref.read(coordsMarkerProvider.notifier).state = pos;
+      }
+    );
+
+  }
+
   Future<void> _addereVelRenovaMarker() async {
-    if (_circleAnnotationManager == null) return;
+    final manager = _circleAnnotationManager;
+    if (manager == null) return;
+
+    await manager.deleteAll();
 
     final placed = ref.read(markerPositumProvider);
 
@@ -32,7 +57,7 @@ class _ChartaScreenState extends ConsumerState<ChartaScreen> {
       return;
     }
 
-    final situs = Position(-122.467895, 37.800126);
+    final situs = ref.read(coordsMarkerProvider);
 
     final color = ref.read(formColorProvider);
 
@@ -53,6 +78,12 @@ class _ChartaScreenState extends ConsumerState<ChartaScreen> {
 
 
   @override
+  void dispose() {
+    _dragCancelable?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     ref.listen<bool>(markerPositumProvider, (prev, next){
@@ -70,7 +101,7 @@ class _ChartaScreenState extends ConsumerState<ChartaScreen> {
               key: const ValueKey('main_map'),
               cameraOptions: CameraOptions(
                 center: Point(
-                  coordinates: Position(-122.467895, 37.800126),
+                  coordinates: initialisMarkerPositio,
                   ), 
                   zoom:14.5,
               ),
@@ -78,13 +109,18 @@ class _ChartaScreenState extends ConsumerState<ChartaScreen> {
               onMapCreated: _initiareCircleAnnotations,
             ),
             
-            const Align(
+            Align(
               alignment: Alignment.topRight,
               child: Padding(
                 padding: EdgeInsets.all(12.0),
-                child: ComplereForm()
-              ),
-            )
+                child: ref.watch(markerPositumProvider)
+                  ? InformaUsoris(
+                    nomen: ref.watch(formNomenProvider), 
+                    positio: ref.watch(coordsMarkerProvider),
+                    color: ref.watch(formColorProvider)
+                  ) : ComplereForm(),                
+                ),
+            ),
           ]
         )
        );
