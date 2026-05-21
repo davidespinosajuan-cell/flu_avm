@@ -18,17 +18,23 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 class ChartaService {
 
   IO.Socket? _socket; 
-  
   final Map<String, Usor> _usores = {};
-
   late final StreamController<List<Usor>> _usoresController;
+
+  Stream<List<Usor>> get usoresStream => _usoresController.stream;
+
+  String? get meusSocketId => _socket?.id;
 
 
   ChartaService() {
     _usoresController = StreamController<List<Usor>>.broadcast();
   }
 
-  void conectare() {
+  void conectare({
+    required String nomen,
+    required String colorHex,
+    required Position position,
+  }) {
     _socket = IO.io('http://192.168.1.147:3200',
       IO.OptionBuilder()
           .setTransports(['websocket'])
@@ -37,6 +43,13 @@ class ChartaService {
     );
 
     _socket!.onConnect((_) {
+      _socket!.emit('CLIENT_REGISTER', {
+        'nomen': nomen,
+        'color': colorHex,
+        'lng': position.lng,
+        'lat': position.lat,
+      });
+
       _socket!.on('CLIENT_JOINED',(payload){
 
         final usor = Usor.fromJson(Map<String, dynamic>.from(payload));
@@ -68,7 +81,7 @@ class ChartaService {
 
       });
 
-      _socket!.on('GET_CLIENT', (payload) {
+      _socket!.on('GET_CLIENTS', (payload) {
         _usores.clear();
 
         for (final item in payload) {
@@ -85,7 +98,13 @@ class ChartaService {
 
   void _usoresListenRenovare() {
     _usoresController.add(List.from(_usores.values));
+  }
 
+  void mitterePositio(Position position) {
+    _socket!.emit('CLIENT_MOVE', {
+      'lng': position.lng,
+      'lat': position.lat,
+    });
   }
 
   void finire(){

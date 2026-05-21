@@ -127,6 +127,14 @@ class ComplereForm extends ConsumerWidget{
 
     if (nameValue.isEmpty) return;
 
+    final socketService = ref.read(socketServiceProvider);
+
+    socketService.conectare(
+      nomen: nameValue,
+      colorHex: colorValue,
+      position: ref.read(coordsMarkerProvider),
+    );
+
     ref.read(markerPositumProvider.notifier).state = true;
 
     // ignore: avoid_print
