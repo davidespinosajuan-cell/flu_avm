@@ -40,7 +40,7 @@ class BandsNotifier extends StateNotifier<BandsState> {
   BandsNotifier() : 
   super(BandsState(
     serverStatus: ServerStatus.Connecting,
-    socket: IO.io('http://192.168.1.147:3000',
+    socket: IO.io('http://192.168.1.147:3200',
       IO.OptionBuilder()
         .setTransports(['websocket'])
         .enableAutoConnect()
