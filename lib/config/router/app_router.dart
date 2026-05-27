@@ -6,9 +6,13 @@ final appRouter = GoRouter(
   initialLocation: '/',
   routes: <RouteBase>[
     GoRoute(
-      path: '/', 
+      path: '/',
+      builder: (context, state) => const BienvenidaScreen(),
+    ),
+    GoRoute(
+      path: '/home',
       builder: (context, state) => const DomusScreen(),
-      ),
+    ),
       GoRoute(path: '/numerator-river', 
       builder: (context, state) =>  const NumeratorScreen()
       ),  
