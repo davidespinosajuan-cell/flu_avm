@@ -42,7 +42,12 @@ const appMenuItems = <MenuItem>[
     subtitulus: 'Peticiones http a una Api',
     link: '/request',
     icon: Icons.catching_pokemon,
-  ), 
+  ),
 
-
+  MenuItem(
+    titulus: 'Iconos',
+    subtitulus: 'Galería de iconos Flutter',
+    link: '/iconos',
+    icon: Icons.grid_view,
+  ),
 ];

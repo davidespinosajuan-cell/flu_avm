@@ -5,3 +5,4 @@ export './bands/bands_screen.dart';
 export './charta/charta_screen.dart'; 
 export './pokemons/pokemons_screen.dart';
 export './pokemons/pokemon_screen.dart';
+export './iconos/iconos_screens.dart';
