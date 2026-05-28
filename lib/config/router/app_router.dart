@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../presentation/screens/screens.dart';
 
@@ -26,8 +25,8 @@ final appRouter = GoRouter(
       ),
 
       GoRoute(
-        path: '/iconos',
-        builder: (context, state) => const IconosScreen(),
+        path: '/divisas',
+        builder: (context, state) => const CambioDivisasScreen(),
       ),
 
       GoRoute(

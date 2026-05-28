@@ -4,3 +4,4 @@ export './bands_provider.dart';
 export './charta_provider.dart';
 export './pokemon_index_provider.dart';
 export './pokemon_provider.dart';
+export './divisas_provider.dart';

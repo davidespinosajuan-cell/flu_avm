@@ -45,9 +45,9 @@ const appMenuItems = <MenuItem>[
   ),
 
   MenuItem(
-    titulus: 'Iconos',
-    subtitulus: 'Galería de iconos Flutter',
-    link: '/iconos',
-    icon: Icons.grid_view,
+    titulus: 'Divisas',
+    subtitulus: 'COP vs USD, EUR y MXN en tiempo real',
+    link: '/divisas',
+    icon: Icons.currency_exchange,
   ),
 ];

@@ -6,3 +6,5 @@ export 'helpers/coloris_forma.dart';
 export './secrets.dart';
 export 'entities/usor.dart';
 export './entities/pokemon.dart';
+export './entities/divisa.dart';
+export './entities/historial_divisas.dart';
